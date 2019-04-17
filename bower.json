@@ -1,0 +1,8 @@
+{
+  "name": "at-card-recent-files",
+  "version": "0.0.1.35",
+  "private": true,
+  "dependencies": {
+    "polymer": "Polymer/polymer#master"
+  }
+}

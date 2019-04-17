@@ -1,0 +1,420 @@
+$type: card
+rules: []
+properties:
+  title:
+    type: element
+    xtype: at-carbon-card-title
+    title: title
+    xgridcols: 12
+    xstyle: 
+    xclass: 
+    actionListeners:
+      - _start
+    modelBind: label:title
+  view3:
+    type: element
+    title: Liquid View 3
+    xtype: at-core-view
+    actionListeners:
+      - _all
+    modelRoot: state.model
+    view: |-
+      {% unless showList == true %} 
+        <div class="layout-vertical layout-center-center">
+          {% if items.length > 0 %}
+            <div class="circle background-blue">
+              <div class="font-headline" style="text-align: center; height: 52px; line-height: 50px;">
+                {% if items.length > 99 %}
+                  99+
+                {% else %}
+                  {{items.length}}
+                {% endif %}
+              </div>
+            </div>
+            <div class="p font-headline grey">Recent Files</div>
+            <div class="pb">
+              <at-carbon-button class="background-blue" button-type="contained" button-color="blue" label="View Files" at-click-action="showList"></at-carbon-button>
+            </div>
+          {% endif %}
+          {% if items.length == 0 %}
+            <div class="font-headline green">
+              You are all caught up!
+            </div>
+            <div class="p layout-self-stretch font-title grey" style="text-align: center;">
+              You have no recent files.
+            </div>
+          {% endif %}
+        </div>
+      {% endunless %}
+
+      <style>
+      .circle {
+        height: 52px;
+        width: 52px;
+        border-radius: 50%;
+      }
+      </style>
+    updateMode: 0
+  view7:
+    type: element
+    title: Liquid View 6
+    xtype: at-core-view
+    view: |-
+      {% if showList %}
+      {% for item in items | limit:6 %}
+      <div class="container layout-vertical action {% if forloop.index > 3 %}expanded-only{% endif %}" href="{{item.link}}" at-click-action="select" style="cursor:pointer;">
+      	<div class="layout-horizontal background-white">
+      		<div class="py px container layout-flex layout-vertical black ">
+        		<div class="layout-horizontal layout-justified pbsm">
+      				<span class="font-title">{{item.title}}</span>&nbsp;<span class="font-caption grey">{{item.type}}</span>
+        		</div>
+      			{% if item.description %}
+      			<div class="font-body1 black" style="font-size: 13px;">
+      				{% capture bodyLength %}{{item.description | size}}{% endcapture %}
+      				{% if bodyLength < 88 %}
+      				{{item.description}}
+      				{% else %}
+      				{{item.description | truncatewords: 8}}
+        			{% endif %}
+      			</div>
+      			{% endif %}
+        		<at-carbon-moment class="font-caption grey" datetime="{{item.date}}" from-now auto-refresh></at-carbon-moment>
+      		</div>
+      	</div>
+      </div>
+      {% endfor %}
+      {% endif %}
+
+      <style>
+      	.action :hover {
+        	background-color: #F5f5f5;
+      	}
+      </style>
+    modelRoot: state.model
+  footer8:
+    type: element
+    xtype: at-carbon-card-footer
+    expandable: !!bool true
+    hide: !!bool true
+    modelBind: 'hide: !showList || !linkLabel, expandable: items.length > 3, href: link, label: linkLabel'
+$meta:
+  cardId: 18
+  preview-data: |-
+    {
+      "items": [
+        {
+          "id": "73365286726",
+          "title": "Meeting Notes",
+          "description": "Notes",
+          "type": "folder",
+          "link": "https://app.box.com/folder/73365286726",
+          "date": "2019-04-17T08:20:59.000Z",
+          "raw": {
+            "type": "folder",
+            "id": "73365286726",
+            "sequence_id": "1",
+            "etag": "1",
+            "name": "Meeting Notes",
+            "created_at": "2019-04-16T04:53:28-07:00",
+            "modified_at": "2019-04-17T01:20:59-07:00",
+            "description": "Notes",
+            "size": 0,
+            "path_collection": {
+              "total_count": 1,
+              "entries": [
+                {
+                  "type": "folder",
+                  "id": "0",
+                  "sequence_id": null,
+                  "etag": null,
+                  "name": "All Files"
+                }
+              ]
+            },
+            "created_by": {
+              "type": "user",
+              "id": "7964507699",
+              "name": "Oliver McNally",
+              "login": "oliver.mcnally@adenin.com"
+            },
+            "modified_by": {
+              "type": "user",
+              "id": "7964507699",
+              "name": "Oliver McNally",
+              "login": "oliver.mcnally@adenin.com"
+            },
+            "trashed_at": null,
+            "purged_at": null,
+            "content_created_at": "2019-04-16T04:53:28-07:00",
+            "content_modified_at": "2019-04-17T01:20:59-07:00",
+            "owned_by": {
+              "type": "user",
+              "id": "7964507699",
+              "name": "Oliver McNally",
+              "login": "oliver.mcnally@adenin.com"
+            },
+            "shared_link": null,
+            "folder_upload_email": null,
+            "parent": {
+              "type": "folder",
+              "id": "0",
+              "sequence_id": null,
+              "etag": null,
+              "name": "All Files"
+            },
+            "item_status": "active",
+            "item_collection": {
+              "total_count": 0,
+              "entries": [],
+              "offset": 0,
+              "limit": 100,
+              "order": [
+                {
+                  "by": "type",
+                  "direction": "ASC"
+                },
+                {
+                  "by": "name",
+                  "direction": "ASC"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "id": "73544762754",
+          "title": "My Box Notes",
+          "description": "",
+          "type": "folder",
+          "link": "https://app.box.com/folder/73544762754",
+          "date": "2019-04-17T08:19:45.000Z",
+          "raw": {
+            "type": "folder",
+            "id": "73544762754",
+            "sequence_id": "0",
+            "etag": "0",
+            "name": "My Box Notes",
+            "created_at": "2019-04-17T01:19:45-07:00",
+            "modified_at": "2019-04-17T01:19:45-07:00",
+            "description": "",
+            "size": 0,
+            "path_collection": {
+              "total_count": 1,
+              "entries": [
+                {
+                  "type": "folder",
+                  "id": "0",
+                  "sequence_id": null,
+                  "etag": null,
+                  "name": "All Files"
+                }
+              ]
+            },
+            "created_by": {
+              "type": "user",
+              "id": "7964507699",
+              "name": "Oliver McNally",
+              "login": "oliver.mcnally@adenin.com"
+            },
+            "modified_by": {
+              "type": "user",
+              "id": "7964507699",
+              "name": "Oliver McNally",
+              "login": "oliver.mcnally@adenin.com"
+            },
+            "trashed_at": null,
+            "purged_at": null,
+            "content_created_at": "2019-04-17T01:19:45-07:00",
+            "content_modified_at": "2019-04-17T01:19:45-07:00",
+            "owned_by": {
+              "type": "user",
+              "id": "7964507699",
+              "name": "Oliver McNally",
+              "login": "oliver.mcnally@adenin.com"
+            },
+            "shared_link": null,
+            "folder_upload_email": null,
+            "parent": {
+              "type": "folder",
+              "id": "0",
+              "sequence_id": null,
+              "etag": null,
+              "name": "All Files"
+            },
+            "item_status": "active",
+            "item_collection": {
+              "total_count": 0,
+              "entries": [],
+              "offset": 0,
+              "limit": 100,
+              "order": [
+                {
+                  "by": "type",
+                  "direction": "ASC"
+                },
+                {
+                  "by": "name",
+                  "direction": "ASC"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "id": "440782941526",
+          "title": "Admin Guide.boxnote",
+          "description": "Guide for Box admins",
+          "type": "file",
+          "link": "https://app.box.com/file/440782941526",
+          "date": "2019-04-17T08:20:45.000Z",
+          "raw": {
+            "type": "file",
+            "id": "440782941526",
+            "file_version": {
+              "type": "file_version",
+              "id": "466217817526",
+              "sha1": "c31e242051ab80c4c71cc6c1443788323c477fdf"
+            },
+            "sequence_id": "2",
+            "etag": "2",
+            "sha1": "c31e242051ab80c4c71cc6c1443788323c477fdf",
+            "name": "Admin Guide.boxnote",
+            "description": "Guide for Box admins",
+            "size": 11968,
+            "path_collection": {
+              "total_count": 1,
+              "entries": [
+                {
+                  "type": "folder",
+                  "id": "0",
+                  "sequence_id": null,
+                  "etag": null,
+                  "name": "All Files"
+                }
+              ]
+            },
+            "created_at": "2019-04-16T04:53:28-07:00",
+            "modified_at": "2019-04-17T01:20:45-07:00",
+            "trashed_at": null,
+            "purged_at": null,
+            "content_created_at": "2017-11-27T18:23:05-08:00",
+            "content_modified_at": "2017-12-07T11:11:10-08:00",
+            "created_by": {
+              "type": "user",
+              "id": "7964507699",
+              "name": "Oliver McNally",
+              "login": "oliver.mcnally@adenin.com"
+            },
+            "modified_by": {
+              "type": "user",
+              "id": "7964507699",
+              "name": "Oliver McNally",
+              "login": "oliver.mcnally@adenin.com"
+            },
+            "owned_by": {
+              "type": "user",
+              "id": "7964507699",
+              "name": "Oliver McNally",
+              "login": "oliver.mcnally@adenin.com"
+            },
+            "shared_link": null,
+            "parent": {
+              "type": "folder",
+              "id": "0",
+              "sequence_id": null,
+              "etag": null,
+              "name": "All Files"
+            },
+            "item_status": "active"
+          }
+        },
+        {
+          "id": "440782940326",
+          "title": "Welcome to Box.pdf",
+          "description": "Welcome guide",
+          "type": "file",
+          "link": "https://app.box.com/file/440782940326",
+          "date": "2019-04-17T08:20:53.000Z",
+          "raw": {
+            "type": "file",
+            "id": "440782940326",
+            "file_version": {
+              "type": "file_version",
+              "id": "466217816326",
+              "sha1": "92c9614354519c993b8b52a2a1da4e2d078dca89"
+            },
+            "sequence_id": "2",
+            "etag": "2",
+            "sha1": "92c9614354519c993b8b52a2a1da4e2d078dca89",
+            "name": "Welcome to Box.pdf",
+            "description": "Welcome guide",
+            "size": 5206506,
+            "path_collection": {
+              "total_count": 1,
+              "entries": [
+                {
+                  "type": "folder",
+                  "id": "0",
+                  "sequence_id": null,
+                  "etag": null,
+                  "name": "All Files"
+                }
+              ]
+            },
+            "created_at": "2019-04-16T04:53:27-07:00",
+            "modified_at": "2019-04-17T01:20:53-07:00",
+            "trashed_at": null,
+            "purged_at": null,
+            "content_created_at": "2017-08-21T16:46:48-07:00",
+            "content_modified_at": "2017-08-21T16:46:48-07:00",
+            "created_by": {
+              "type": "user",
+              "id": "7964507699",
+              "name": "Oliver McNally",
+              "login": "oliver.mcnally@adenin.com"
+            },
+            "modified_by": {
+              "type": "user",
+              "id": "7964507699",
+              "name": "Oliver McNally",
+              "login": "oliver.mcnally@adenin.com"
+            },
+            "owned_by": {
+              "type": "user",
+              "id": "7964507699",
+              "name": "Oliver McNally",
+              "login": "oliver.mcnally@adenin.com"
+            },
+            "shared_link": null,
+            "parent": {
+              "type": "folder",
+              "id": "0",
+              "sequence_id": null,
+              "etag": null,
+              "name": "All Files"
+            },
+            "item_status": "active"
+          }
+        }
+      ],
+      "_settings": {}
+    }
+  preview-mode: live
+  preview-container: event
+  search-term: 
+  service-url: 
+  xclass: 
+  xstyle: 
+  code: |-
+    action.initialize = function(evt) {
+      evt.model.showList = false;
+    }
+
+    action.showList = function(evt) {
+      evt.model.showList = true;
+    }
+
+    action.select = function(evt) {
+      var win = window.open(evt.args.href, '_blank');
+      win.focus();
+    }
